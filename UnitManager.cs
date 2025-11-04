@@ -1,40 +1,40 @@
 namespace FinalAssignment;
 
-public interface IUnitManager {
+public interface IUnitManager<T> where T : IUnit {
     
-    IReadOnlyList<IUnit> Units { get; }
+    IReadOnlyList<T> Units { get; }
     
-    void AddUnit(IUnit unit);
+    void AddUnit(T unit);
     
-    void RemoveUnit(IUnit unit);
+    void RemoveUnit(T unit);
     
-    IUnit? GetUnitAtPosition(IPosition pos);
+    T? GetUnitAtPosition(IPosition pos);
     
     void ClearUnits();
     
 }
 
-public class UnitManager : IUnitManager {
+public class UnitManager<T> : IUnitManager<T> where T : IUnit {
     
-    private List<IUnit> m_units = new List<IUnit>();
+    private List<T> m_units = new List<T>();
     
-    public IReadOnlyList<IUnit> Units => m_units;
+    public IReadOnlyList<T> Units => m_units;
     
-    public void AddUnit(IUnit unit) {
+    public void AddUnit(T unit) {
         m_units.Add(unit);
     }
     
-    public void RemoveUnit(IUnit unit) {
+    public void RemoveUnit(T unit) {
         m_units.Remove(unit);
     }
     
-    public IUnit? GetUnitAtPosition(IPosition pos) {
+    public T? GetUnitAtPosition(IPosition pos) {
         foreach (var unit in m_units) {
             if (unit.Pos.X == pos.X && unit.Pos.Y == pos.Y) {
                 return unit;
             }
         }
-        return null;
+        return default;
     }
     
     public void ClearUnits() {

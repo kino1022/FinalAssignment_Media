@@ -37,15 +37,6 @@ public abstract class AUnit : IUnit {
         m_pos = pos;
     }
 
-    public void SetPos(int x, int y) {
-        
-        if (x < 0) throw new ArgumentOutOfRangeException();
-        
-        if (y < 0) throw new ArgumentOutOfRangeException();
-        
-        var next = new Position(x, y);
-        
-        m_pos = next;
-    }
+    public void SetPos (int x, int y) => m_pos.SetPos(x, y);
     
 }

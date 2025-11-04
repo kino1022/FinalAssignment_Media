@@ -4,6 +4,8 @@ public interface IPosition {
     int X { get; }
     
     int Y { get; }
+    
+    void SetPos(int x, int y);
 }
 
 public struct Position : IPosition {
@@ -17,13 +19,30 @@ public struct Position : IPosition {
     public int Y => m_y;
 
     public Position(int x, int y) {
-        
-        if (x < 0) throw new ArgumentOutOfRangeException();
-        
-        if (y < 0) throw new ArgumentOutOfRangeException();
+
+        if (CheckIntegrate(x, y) is false) throw new ArgumentOutOfRangeException();
         
         m_x = x;
         
         m_y = y;
+    }
+
+    public void SetPos(int x, int y) {
+        
+        if (CheckIntegrate(x, y) is false) throw new ArgumentOutOfRangeException();
+        
+        m_x = x;
+        
+        m_y = y;
+        
+    }
+
+    private bool CheckIntegrate(int x, int y) {
+        
+        if (x < 0 || x > AppData.GetInstance().MapWidth) return false;
+        
+        if (y < 0 || y > AppData.GetInstance().MapHeight) return false;
+        
+        return true;
     }
 }

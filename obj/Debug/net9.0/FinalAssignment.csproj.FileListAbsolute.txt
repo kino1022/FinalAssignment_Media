@@ -1,0 +1,15 @@
+/Users/fujitayuuta/Documents/FinalAssignment/bin/Debug/net9.0/FinalAssignment
+/Users/fujitayuuta/Documents/FinalAssignment/bin/Debug/net9.0/FinalAssignment.deps.json
+/Users/fujitayuuta/Documents/FinalAssignment/bin/Debug/net9.0/FinalAssignment.runtimeconfig.json
+/Users/fujitayuuta/Documents/FinalAssignment/bin/Debug/net9.0/FinalAssignment.dll
+/Users/fujitayuuta/Documents/FinalAssignment/bin/Debug/net9.0/FinalAssignment.pdb
+/Users/fujitayuuta/Documents/FinalAssignment/obj/Debug/net9.0/FinalAssignment.GeneratedMSBuildEditorConfig.editorconfig
+/Users/fujitayuuta/Documents/FinalAssignment/obj/Debug/net9.0/FinalAssignment.AssemblyInfoInputs.cache
+/Users/fujitayuuta/Documents/FinalAssignment/obj/Debug/net9.0/FinalAssignment.AssemblyInfo.cs
+/Users/fujitayuuta/Documents/FinalAssignment/obj/Debug/net9.0/FinalAssignment.csproj.CoreCompileInputs.cache
+/Users/fujitayuuta/Documents/FinalAssignment/obj/Debug/net9.0/FinalAssignment.sourcelink.json
+/Users/fujitayuuta/Documents/FinalAssignment/obj/Debug/net9.0/FinalAssignment.dll
+/Users/fujitayuuta/Documents/FinalAssignment/obj/Debug/net9.0/refint/FinalAssignment.dll
+/Users/fujitayuuta/Documents/FinalAssignment/obj/Debug/net9.0/FinalAssignment.pdb
+/Users/fujitayuuta/Documents/FinalAssignment/obj/Debug/net9.0/FinalAssignment.genruntimeconfig.cache
+/Users/fujitayuuta/Documents/FinalAssignment/obj/Debug/net9.0/ref/FinalAssignment.dll

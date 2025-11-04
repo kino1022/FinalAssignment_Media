@@ -13,11 +13,11 @@ public sealed class DrawManager {
     
     private AppData m_appData = AppData.GetInstance();
 
-    private IUnitManager m_units;
+    private IUnitManager<IPiece> m_units;
     
     private readonly char emptySymbol = '・';
     
-    public DrawManager(IUnitManager unitManager) {
+    public DrawManager(IUnitManager<IPiece> unitManager) {
         m_units = unitManager;
     }
 
@@ -31,8 +31,11 @@ public sealed class DrawManager {
             for (int x = 0; x < m_appData.MapWidth; x++) {
                 var pos = new Position(x, y);
                 var unit = m_units.GetUnitAtPosition(pos);
+                
                 if (unit != null) {
+                    Console.ForegroundColor = unit.Group.ToColor();
                     Console.Write(unit.Symbol);
+                    Console.ResetColor();
                 } else {
                     Console.Write(emptySymbol);
                 }
