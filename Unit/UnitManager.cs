@@ -1,20 +1,21 @@
 namespace FinalAssignment;
 
-public interface IUnitManager<T> where T : IUnit {
-    
+public interface IUnitManager<T> where T : IUnit
+{
+
     IReadOnlyList<T> Units { get; }
-    
+
     void AddUnit(T unit);
-    
+
     void RemoveUnit(T unit);
-    
+
     T? GetUnitAtPosition(IPosition pos);
-    
+
     void ClearUnits();
-    
+
 }
 
-public class UnitManager<T> : IUnitManager<T> where T : IUnit {
+public abstract class AUnitManager<T> : IUnitManager<T> where T : IUnit {
     
     private List<T> m_units = new List<T>();
     
@@ -40,4 +41,12 @@ public class UnitManager<T> : IUnitManager<T> where T : IUnit {
     public void ClearUnits() {
         m_units.Clear();
     }
+}
+
+public sealed class UnitManager : AUnitManager<APiece>
+{
+    private static UnitManager _instance;
+    
+    public static UnitManager GetInstance() => _instance ??= new UnitManager();
+    
 }

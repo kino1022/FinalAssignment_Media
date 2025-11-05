@@ -2,8 +2,15 @@ namespace FinalAssignment.State;
 
 public interface IGameStateManager {
     
+    /// <summary>
+    /// 現在のステート
+    /// </summary>
     IGameState CurrentState { get; }
     
+    /// <summary>
+    /// ステートの変更を行う
+    /// </summary>
+    /// <param name="newState"></param>
     void ChangeState(IGameState newState);
     
 }
@@ -11,8 +18,8 @@ public interface IGameStateManager {
 public sealed class GameStateManager  : IGameStateManager {
     
     private static GameStateManager _instance = new GameStateManager();
-    
-    private IGameState _currentState = null;
+
+    private IGameState _currentState = new GameStartState();
     
     public static GameStateManager GetInstance() => _instance;
     
@@ -26,5 +33,7 @@ public sealed class GameStateManager  : IGameStateManager {
         
         _currentState?.Enter();
         
+        _currentState?.Start();
+
     }
 }

@@ -13,17 +13,18 @@ public interface IDrawManager {
 
 public sealed class DrawManager : IDrawManager {
     
+    private static IDrawManager _instance = new DrawManager();
+    
     private AppData m_appData = AppData.GetInstance();
 
-    private IUnitManager<IPiece> m_units;
+    private IUnitManager<APiece> m_units = UnitManager.GetInstance();
     
     private readonly char emptySymbol = '・';
 
     public string InfoMessage { get; set; }
-
-    public DrawManager(IUnitManager<IPiece> unitManager) {
-        m_units = unitManager;
-    }
+    
+    public static IDrawManager GetInstance() => _instance;
+    
 
     public void UpdateDraw() {
         

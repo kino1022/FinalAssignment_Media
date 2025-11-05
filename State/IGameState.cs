@@ -8,7 +8,3 @@ public interface IGameState {
     
     void Exit();
 }
-
-public class AGameState {
-    
-}

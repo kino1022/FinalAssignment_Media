@@ -13,24 +13,7 @@ class Program {
     };
 
     static void Main(string[] args) {
-
-        var units = new UnitManager<IPiece>();
         
-        var drawManager = new DrawManager(units);
-
-        InitReadPieces();
-        
-        InitBluePieces();
-        
-        redPieces.ForEach(x => units.AddUnit(x));
-        
-        bluePieces.ForEach(x => units.AddUnit(x));
-            
-        while (true) {
-            drawManager.UpdateDraw();
-            
-           Thread.Sleep(1000);
-        }
     }
     
     private static void InitReadPieces() {

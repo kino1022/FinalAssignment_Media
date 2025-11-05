@@ -5,15 +5,11 @@ namespace FinalAssignment.State;
 /// </summary>
 public class GameStartState : IGameState {
 
-    private IGameStateManager _stateManager = GameStateManager.GetInstance();
+    private readonly IGameStateManager _stateManager = GameStateManager.GetInstance();
 
-    private IDrawManager _draw;
+    private readonly IDrawManager _draw = DrawManager.GetInstance();
     
-    private bool _loopflag = true;
-
-    public GameStartState(IDrawManager drawManager) {
-        _draw = drawManager;
-    }
+    private bool _loopFlag = true;
     
     public void Enter() {
         
@@ -23,14 +19,14 @@ public class GameStartState : IGameState {
 
     public void Start() {
         
-        while (_loopflag) {
+        while (_loopFlag) {
             var key = Console.ReadKey(true);
             if (key.Key == ConsoleKey.Enter) {
-                _loopflag = false;
+                _loopFlag = false;
             }
         }
         
-        _stateManager.ChangeState();
+        _stateManager.ChangeState(new SelectPiecePhase(Group.Red));
     }
     
     public void Exit() {
