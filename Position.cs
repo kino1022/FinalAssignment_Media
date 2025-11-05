@@ -46,3 +46,13 @@ public struct Position : IPosition {
         return true;
     }
 }
+
+public static class PositionExtensions
+{
+    public static bool IsInside(this IPosition pos)
+    {
+        var app = AppData.GetInstance();
+        
+        return pos.X >= 0 && pos.X < app.MapWidth && pos.Y >= 0 && pos.Y < app.MapHeight;
+    }
+}

@@ -6,8 +6,7 @@ public interface IMoveRule {
     /// 移動可能な座標を取得する
     /// </summary>
     /// <param name="piece"></param>
-    /// <param name="pieces"></param>
     /// <returns></returns>
-    IEnumerable<Position> GetMoves (IPiece piece, IUnitManager<IPiece> pieces);
+    IEnumerable<Position> GetMoves (IPiece piece);
     
 }

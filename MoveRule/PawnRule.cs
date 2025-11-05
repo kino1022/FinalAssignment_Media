@@ -1,9 +1,11 @@
 namespace FinalAssignment.MoveRule;
 
 public class PawnRule : IMoveRule {
-    public IEnumerable<Position> GetMoves(IPiece piece, IUnitManager<IPiece> pieces) {
+    public IEnumerable<Position> GetMoves(IPiece piece) {
 
         var app = AppData.GetInstance();
+
+        var pieces = UnitManager.GetInstance();
 
         var dir = piece.Group == Group.Red ? 1 : -1;
 

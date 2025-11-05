@@ -10,6 +10,8 @@ public interface IBackGroundContainer
     void AddDraw(Position position, ConsoleColor color);
     
     void RemoveDraw(Position position);
+
+    void Clear();
 }
 
 public class BackGroundContainer : IBackGroundContainer
@@ -37,5 +39,10 @@ public class BackGroundContainer : IBackGroundContainer
     public void RemoveDraw(Position pos)
     {
         _colors.Remove(pos);
+    }
+
+    public void Clear()
+    {
+        _colors.Clear();
     }
 }
