@@ -5,28 +5,11 @@ class Program {
     private static AppData app = AppData.GetInstance();
 
     private static List<IPiece> redPieces = new List<IPiece>() {
-        new Piece('歩', new Position(0, app.MapHeight - 3), Group.Red),
-        new Piece('歩', new Position(1, app.MapHeight - 3), Group.Red),
-        new Piece('歩', new Position(2, app.MapHeight - 3), Group.Red),
-        new Piece('歩', new Position(3, app.MapHeight - 3), Group.Red),
-        new Piece('歩', new Position(4, app.MapHeight - 3), Group.Red),
-        new Piece('歩', new Position(5, app.MapHeight - 3), Group.Red),
-        new Piece('歩', new Position(6, app.MapHeight - 3), Group.Red),
-        new Piece('歩', new Position(7, app.MapHeight - 3), Group.Red),
-        new Piece('歩', new Position(8, app.MapHeight - 3), Group.Red),
  
     };
     
     private static List<IPiece> bluePieces = new List<IPiece>() {
-        new Piece('歩', new Position(0, 2), Group.Blue),
-        new Piece('歩', new Position(1, 2), Group.Blue),
-        new Piece('歩', new Position(2, 2), Group.Blue),
-        new Piece('歩', new Position(3, 2), Group.Blue),
-        new Piece('歩', new Position(4, 2), Group.Blue),
-        new Piece('歩', new Position(5, 2), Group.Blue),
-        new Piece('歩', new Position(6, 2), Group.Blue),
-        new Piece('歩', new Position(7, 2), Group.Blue),
-        new Piece('歩', new Position(8, 2), Group.Blue),
+        
     };
 
     static void Main(string[] args) {
@@ -34,6 +17,10 @@ class Program {
         var units = new UnitManager<IPiece>();
         
         var drawManager = new DrawManager(units);
+
+        InitReadPieces();
+        
+        InitBluePieces();
         
         redPieces.ForEach(x => units.AddUnit(x));
         
@@ -42,7 +29,25 @@ class Program {
         while (true) {
             drawManager.UpdateDraw();
             
-            System.Threading.Thread.Sleep(1000);
+           Thread.Sleep(1000);
+        }
+    }
+    
+    private static void InitReadPieces() {
+        redPieces.Clear();
+
+        for (int i = 0; i < app.MapWidth; i++) {
+            var pawn = new Pawn(new Position(i, app.MapHeight -3), Group.Red);
+            redPieces.Add(pawn);
+        }
+    }
+
+    private static void InitBluePieces() {
+        bluePieces.Clear();
+        
+        for (int i = 0; i < app.MapWidth; i++) {
+            var pawn = new Pawn(new Position(i, 2), Group.Blue);
+            bluePieces.Add(pawn);
         }
     }
 }
