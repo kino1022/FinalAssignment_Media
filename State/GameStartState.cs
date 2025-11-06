@@ -25,12 +25,13 @@ public class GameStartState : IGameState {
 
     public void Update() {
         // InputManager のキューから Enter を取り出して遷移させる
-        if (_input.Queue.TryDequeue(out var raw)) {
+        if (_input.Queue.TryPeek(out var raw)) {
             if (raw.Key == ConsoleKey.Enter)
             {
                 _input.Queue.TryDequeue(out _);
                 _draw.DebugMessage = "Enter was pressed.";
-                _stateManager.ChangeState(new SelectPiecePhase(Group.Red));
+                var next = new SelectPiecePhase(group: Group.Red);
+                _stateManager.ChangeState(next);
             }
             // Enter 以外は他のコンポーネントで処理するため破棄
         }

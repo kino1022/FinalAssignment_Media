@@ -46,9 +46,18 @@ class Program {
 
         while (true) {
             
+            while (Console.KeyAvailable)
+            {
+                var keyInfo = Console.ReadKey(true);
+                _input.Queue.Enqueue(keyInfo);
+            }
+            
+            _state.Update();
+            
             _drawer.UpdateDraw();
+            
 
-            Thread.Sleep(200);
+            Thread.Sleep(50);
         }
     }
     

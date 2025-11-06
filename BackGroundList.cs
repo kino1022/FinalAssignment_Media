@@ -21,7 +21,7 @@ public class BackGroundContainer : IBackGroundContainer
     private Dictionary<IPosition, ConsoleColor> _colors = new();
     
     public IReadOnlyDictionary<IPosition, ConsoleColor> Colors => _colors;
-    
+
     public static IBackGroundContainer GetInstance() => _instance;
 
     public void AddDraw(IPosition pos, ConsoleColor color)

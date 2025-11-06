@@ -8,6 +8,8 @@ public interface IGameStateManager {
     /// 現在のステート
     /// </summary>
     IGameState CurrentState { get; }
+
+    void Update();
     
     /// <summary>
     /// ステートの変更を行う
@@ -19,7 +21,7 @@ public interface IGameStateManager {
 
 public sealed class GameStateManager  : IGameStateManager {
     
-    private static GameStateManager _instance = new GameStateManager();
+    private static readonly GameStateManager _instance = new GameStateManager();
     
     private AppData _app = AppData.GetInstance();
 
@@ -29,26 +31,11 @@ public sealed class GameStateManager  : IGameStateManager {
     
     public IGameState CurrentState => _currentState;
 
-    public GameStateManager() {
-        DrawManager.GetInstance().DebugMessage = "GameStateManager initialized.";
-        // GameCycle は非同期メソッドなので、Fire-and-forget で起動する
-        // 明示的に Task.Run でバックグラウンド実行するように変更
-        Task.Run(
-            () => GameCycle()
-        );
-    }
+    public GameStateManager() { }
 
-    private async Task GameCycle() {
-        while (_app.LoopFlag) {
-
-            // 2) ステート更新
-            if (_currentState is not null) {
-                _currentState.Update();
-            }
-            
-            // CPU 負荷を下げるために短い delay を入れる
-            await Task.Delay(10);
-        }
+    public void Update()
+    {
+        _currentState?.Update();
     }
 
     public void ChangeState(IGameState newState)

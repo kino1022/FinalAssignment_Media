@@ -22,11 +22,6 @@ public sealed class InputManager : IInputManager {
     public ConcurrentQueue<ConsoleKeyInfo> Queue => _queue;
     
     public static IInputManager GetInstance() => _instance;
-
-    public InputManager() {
-        // 入力の読み取りは GameStateManager の GameCycle に統合
-        var task = Task.Run(() => InputCycle());
-    }
     
     private async Task InputCycle() {
         while (_app.LoopFlag) {

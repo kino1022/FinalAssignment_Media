@@ -68,6 +68,9 @@ public sealed class PlayerCursor : IPlayerCursor
                     case ConsoleKey.Enter:
                         // Enter は State 側で処理させるためここでは dequeue しない
                         break;
+                    
+                    case ConsoleKey.Backspace:
+                        break;
                     default:
                         // 不要なキーは取り除く
                         _input.Queue.TryDequeue(out _);
