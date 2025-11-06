@@ -7,10 +7,7 @@ namespace FinalAssignment.State;
 /// プログラム開始時にEnterキーを押下するまで待機する状態
 /// </summary>
 public class GameStartState : IGameState {
-
-    private readonly IGameStateManager _stateManager = GameStateManager.GetInstance();
-
-    private readonly IDrawManager _draw = DrawManager.GetInstance();
+    
     
     private readonly IInputManager _input = InputManager.GetInstance();
     
@@ -18,8 +15,10 @@ public class GameStartState : IGameState {
     
     public void Enter() {
         
-        _draw.InfoMessage = "Enterを押下して開始";
-        _draw.DebugMessage = "CurrentState: GameStartState";
+        var draw = DrawManager.GetInstance();
+        
+        draw.InfoMessage = "Enterを押下して開始";
+        draw.DebugMessage = "CurrentState: GameStartState";
         
     }
 
@@ -29,18 +28,23 @@ public class GameStartState : IGameState {
             if (raw.Key == ConsoleKey.Enter)
             {
                 _input.Queue.TryDequeue(out _);
-                _draw.DebugMessage = "Enter was pressed.";
+                var draw = DrawManager.GetInstance();
+                draw.DebugMessage = "Enter was pressed.";
                 var next = new SelectPiecePhase(group: Group.Red);
-                _stateManager.ChangeState(next);
+
+                var stateManager = GameStateManager.GetInstance();
+                stateManager.ChangeState(next);
             }
             // Enter 以外は他のコンポーネントで処理するため破棄
         }
     }
     
     public void Exit() {
+        
+        var draw = DrawManager.GetInstance();
 
-        _draw.InfoMessage = string.Empty;
-        _draw.DebugMessage = "StartState was exited.";
+        draw.InfoMessage = string.Empty;
+        draw.DebugMessage = "StartState was exited.";
         
     }
     
