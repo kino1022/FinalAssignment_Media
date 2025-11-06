@@ -8,6 +8,7 @@ public interface IPosition {
     void SetPos(int x, int y);
 }
 
+[Serializable]
 public struct Position : IPosition {
 
     private int m_x = 0;
@@ -39,9 +40,9 @@ public struct Position : IPosition {
 
     private bool CheckIntegrate(int x, int y) {
         
-        if (x < 0 || x > AppData.GetInstance().MapWidth) return false;
+        if (x < 0 || x > AppData.GetInstance().MapWidth -1) return false;
         
-        if (y < 0 || y > AppData.GetInstance().MapHeight) return false;
+        if (y < 0 || y > AppData.GetInstance().MapHeight -1) return false;
         
         return true;
     }

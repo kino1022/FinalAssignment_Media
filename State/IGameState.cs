@@ -4,7 +4,7 @@ public interface IGameState {
 
     void Enter();
 
-    void Start();
+    void Update();
     
     void Exit();
 }

@@ -1,3 +1,5 @@
+using FinalAssignment.Input;
+
 namespace FinalAssignment.State;
 
 /// <summary>
@@ -9,29 +11,32 @@ public class GameStartState : IGameState {
 
     private readonly IDrawManager _draw = DrawManager.GetInstance();
     
+    private readonly IInputManager _input = InputManager.GetInstance();
+    
     private bool _loopFlag = true;
     
     public void Enter() {
         
         _draw.InfoMessage = "Enterを押下して開始";
+        _draw.DebugMessage = "CurrentState: GameStartState";
         
     }
 
-    public void Start() {
-        
-        while (_loopFlag) {
-            var key = Console.ReadKey(true);
-            if (key.Key == ConsoleKey.Enter) {
-                _loopFlag = false;
+    public void Update() {
+        // InputManager のキューから Enter を取り出して遷移させる
+        if (_input.Queue.TryDequeue(out var raw)) {
+            if (raw.Key == ConsoleKey.Enter) {
+                _draw.DebugMessage = "Switching to SelectPiecePhase";
+                _stateManager.ChangeState(new SelectPiecePhase(Group.Red));
             }
+            // Enter 以外は他のコンポーネントで処理するため破棄
         }
-        
-        _stateManager.ChangeState(new SelectPiecePhase(Group.Red));
     }
     
     public void Exit() {
-        
-        _draw.InfoMessage = string.Empty;
+
+        _draw.InfoMessage = "";
+        _draw.DebugMessage = "StartState was exited.";
         
     }
     
