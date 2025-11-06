@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FinalAssignment.Input;
 
 namespace FinalAssignment.State;
@@ -25,8 +26,10 @@ public class GameStartState : IGameState {
     public void Update() {
         // InputManager のキューから Enter を取り出して遷移させる
         if (_input.Queue.TryDequeue(out var raw)) {
-            if (raw.Key == ConsoleKey.Enter) {
-                _draw.DebugMessage = "Switching to SelectPiecePhase";
+            if (raw.Key == ConsoleKey.Enter)
+            {
+                _input.Queue.TryDequeue(out _);
+                _draw.DebugMessage = "Enter was pressed.";
                 _stateManager.ChangeState(new SelectPiecePhase(Group.Red));
             }
             // Enter 以外は他のコンポーネントで処理するため破棄
@@ -35,7 +38,7 @@ public class GameStartState : IGameState {
     
     public void Exit() {
 
-        _draw.InfoMessage = "";
+        _draw.InfoMessage = string.Empty;
         _draw.DebugMessage = "StartState was exited.";
         
     }

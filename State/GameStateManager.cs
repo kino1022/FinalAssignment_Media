@@ -45,16 +45,24 @@ public sealed class GameStateManager  : IGameStateManager {
             if (_currentState is not null) {
                 _currentState.Update();
             }
+            
             // CPU 負荷を下げるために短い delay を入れる
             await Task.Delay(10);
         }
     }
 
-    public void ChangeState(IGameState newState) {
-        
-        _currentState.Exit();
+    public void ChangeState(IGameState newState)
+    {
 
+        var drawer = DrawManager.GetInstance();
+        
+        drawer.DebugMessage = "ChangeState was called.";
+        
+        var previousState = _currentState;
+        
         _currentState = newState;
+        
+        previousState.Exit();
         
         _currentState.Enter();
 

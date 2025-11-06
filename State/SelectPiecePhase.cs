@@ -27,9 +27,10 @@ public class SelectPiecePhase : IGameState
     }
 
     public void Update() {
-        if (_input.Queue.TryDequeue(out var raw)) {
+        if (_input.Queue.TryPeek(out var raw)) {
             _draw.DebugMessage = $"SelectPiecePhase: dequeued {raw.Key}";
             if (raw.Key == ConsoleKey.Enter) {
+                _input.Queue.TryDequeue(out _);
                 
                 var unit = _unit.GetUnitAtPosition(_cursor.Position);
                 

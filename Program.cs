@@ -42,6 +42,8 @@ class Program {
         
         _state.CurrentState.Enter();
 
+        Console.CursorVisible = false;
+
         while (true) {
             
             _drawer.UpdateDraw();

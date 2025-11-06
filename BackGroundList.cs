@@ -5,11 +5,11 @@
 /// </summary>
 public interface IBackGroundContainer
 {
-    IReadOnlyDictionary<Position, ConsoleColor> Colors { get; }
+    IReadOnlyDictionary<IPosition, ConsoleColor> Colors { get; }
     
-    void AddDraw(Position position, ConsoleColor color);
+    void AddDraw(IPosition position, ConsoleColor color);
     
-    void RemoveDraw(Position position);
+    void RemoveDraw(IPosition position);
 
     void Clear();
 }
@@ -18,19 +18,19 @@ public class BackGroundContainer : IBackGroundContainer
 {
     private static readonly IBackGroundContainer _instance = new BackGroundContainer();
     
-    private Dictionary<Position, ConsoleColor> _colors = new Dictionary<Position, ConsoleColor>();
+    private Dictionary<IPosition, ConsoleColor> _colors = new();
     
-    public IReadOnlyDictionary<Position, ConsoleColor> Colors => _colors;
+    public IReadOnlyDictionary<IPosition, ConsoleColor> Colors => _colors;
     
     public static IBackGroundContainer GetInstance() => _instance;
 
-    public void AddDraw(Position pos, ConsoleColor color)
+    public void AddDraw(IPosition pos, ConsoleColor color)
     {
         // 既に存在する場合は上書き、存在しない場合は追加
         _colors[pos] = color;
     }
 
-    public void RemoveDraw(Position pos)
+    public void RemoveDraw(IPosition pos)
     {
         _colors.Remove(pos);
     }

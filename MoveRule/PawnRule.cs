@@ -1,7 +1,7 @@
 namespace FinalAssignment.MoveRule;
 
 public class PawnRule : IMoveRule {
-    public IEnumerable<Position> GetMoves(IPiece piece) {
+    public IEnumerable<IPosition> GetMoves(IPiece piece) {
 
         var app = AppData.GetInstance();
 
