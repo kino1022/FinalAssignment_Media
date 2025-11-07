@@ -44,7 +44,7 @@ class Program {
 
         Console.CursorVisible = false;
 
-        while (true) {
+        while (app.LoopFlag) {
             
             while (Console.KeyAvailable)
             {
@@ -59,6 +59,7 @@ class Program {
 
             Thread.Sleep(50);
         }
+        
     }
     
     private static void InitReadPieces() {

@@ -107,6 +107,10 @@ public class SelectDestinationPhase : IGameState {
         //先客がいてグループが違うなら取る
         else if (previous.Group != _unit.Group)
         {
+            if (previous.GetType() == typeof(King)) {
+                AppData.GetInstance().LoopFlag = false;
+            }
+            
             _units.RemoveUnit(previous);
             _unit.Pos.SetPos(pos.X, pos.Y);
             return true;
@@ -121,7 +125,7 @@ public class SelectDestinationPhase : IGameState {
             return false;
         }
         
-        return piece.Group == Group.Red ? 2 > piece.Pos.Y : AppData.GetInstance().MapHeight - 3 < piece.Pos.Y;
+        return piece.Group == Group.Red ? 3 > piece.Pos.Y : AppData.GetInstance().MapHeight - 3 < piece.Pos.Y;
 
     }
 }
