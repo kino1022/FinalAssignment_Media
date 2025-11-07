@@ -9,7 +9,7 @@ public interface IUnitManager<T> where T : IUnit
 
     void RemoveUnit(T unit);
 
-    T? GetUnitAtPosition(IPosition pos);
+    T? GetUnitAtPosition(Position pos);
 
     void ClearUnits();
 
@@ -29,7 +29,7 @@ public abstract class AUnitManager<T> : IUnitManager<T> where T : IUnit {
         m_units.Remove(unit);
     }
     
-    public T? GetUnitAtPosition(IPosition pos) {
+    public T? GetUnitAtPosition(Position pos) {
         foreach (var unit in m_units) {
             if (unit.Pos.X == pos.X && unit.Pos.Y == pos.Y) {
                 return unit;

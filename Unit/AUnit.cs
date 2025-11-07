@@ -10,7 +10,7 @@ public interface IUnit {
     /// <summary>
     /// 存在する座標
     /// </summary>
-    IPosition Pos { get; }
+    Position Pos { get; }
     
     /// <summary>
     /// 座標を変更する
@@ -25,13 +25,13 @@ public abstract class AUnit : IUnit {
 
     private char m_synbol;
 
-    private IPosition m_pos;
+    private Position m_pos;
     
-    public IPosition Pos => m_pos;
+    public Position Pos => m_pos;
     
     public char Symbol => m_synbol;
     
-    protected AUnit(char symbol, IPosition pos) {
+    protected AUnit(char symbol, Position pos) {
         m_synbol = symbol;
 
         m_pos = pos;

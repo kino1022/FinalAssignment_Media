@@ -1,15 +1,7 @@
 namespace FinalAssignment;
 
-public interface IPosition {
-    int X { get; }
-    
-    int Y { get; }
-    
-    void SetPos(int x, int y);
-}
-
 [Serializable]
-public struct Position : IPosition {
+public struct Position  {
 
     private int m_x = 0;
     
@@ -27,6 +19,10 @@ public struct Position : IPosition {
         
         m_y = y;
     }
+    
+    public static bool operator ==(Position a, Position b) => a.m_x == b.m_x && a.m_y == b.m_y;
+    
+    public static bool operator !=(Position a, Position b) => !(a == b);
 
     public void SetPos(int x, int y) {
         
@@ -50,7 +46,7 @@ public struct Position : IPosition {
 
 public static class PositionExtensions
 {
-    public static bool IsInside(this IPosition pos)
+    public static bool IsInside(this Position pos)
     {
         var app = AppData.GetInstance();
         

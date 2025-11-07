@@ -19,7 +19,7 @@ public class SelectDestinationPhase : IGameState {
     
     private readonly IUnitManager<APiece> _units = UnitManager.GetInstance();
     
-    private IEnumerable<IPosition> _destinations;
+    private IEnumerable<Position> _destinations;
 
     private ConsoleColor _color = ConsoleColor.Yellow;
 
@@ -52,6 +52,7 @@ public class SelectDestinationPhase : IGameState {
                     
                     if (success)
                     {
+                        //移動成功時に成り駒の判定と処理も行うこと
                         _state.ChangeState(new SelectPiecePhase(_unit.Group == Group.Red ? Group.Blue : Group.Red));
                     }
                     else
@@ -81,7 +82,7 @@ public class SelectDestinationPhase : IGameState {
         }
     }
 
-    private bool MoveUnit(IPosition pos)
+    private bool MoveUnit(Position pos)
     {
         var previous = _units.GetUnitAtPosition(pos);
 

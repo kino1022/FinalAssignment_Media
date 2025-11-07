@@ -6,7 +6,7 @@ public interface IPiece : IUnit {
     
     Group Group { get; }
     
-    IEnumerable<IPosition> Positions { get; }
+    IEnumerable<Position> Positions { get; }
     
 }
 
@@ -18,9 +18,9 @@ public abstract class APiece : AUnit , IPiece{
     
     public Group Group => m_group;
 
-    public IEnumerable<IPosition> Positions => m_moveRule.GetMoves(this);
+    public IEnumerable<Position> Positions => m_moveRule.GetMoves(this);
     
-    protected APiece(char symbol, IPosition pos, Group group, IMoveRule rule) : base(symbol, pos) {
+    protected APiece(char symbol, Position pos, Group group, IMoveRule rule) : base(symbol, pos) {
         
         m_group = group;
         

@@ -59,7 +59,7 @@ public sealed class DrawManager : IDrawManager {
                     int drawX = x * cellWidth;
                     try { Console.SetCursorPosition(drawX, cursorY); } catch { /* 失敗しても続行 */ }
 
-                    var isCursor = _cursor.Position.X == x && _cursor.Position.Y == y;
+                    var isCursor = _cursor.Position == pos;
 
                     // 背景色設定
                     if (_bg.Colors.TryGetValue(pos, out var bgColor)) {

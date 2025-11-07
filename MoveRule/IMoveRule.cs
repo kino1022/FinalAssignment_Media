@@ -7,6 +7,6 @@ public interface IMoveRule {
     /// </summary>
     /// <param name="piece"></param>
     /// <returns></returns>
-    IEnumerable<IPosition> GetMoves(APiece piece);
+    IEnumerable<Position> GetMoves(APiece piece);
 
 }

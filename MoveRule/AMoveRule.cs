@@ -13,29 +13,26 @@ public abstract class AMoveRule : IMoveRule {
         _destinations = destinations;
     }
     
-    public IEnumerable<IPosition> GetMoves (APiece piece) {
+    public IEnumerable<Position> GetMoves (APiece piece) {
         
         var pos = piece.Pos;
 
-        var destinations = _destinations;
+        int directionMultiplier = (int)piece.Group;
         
-        // グループに応じて移動方向を変える
-        destinations.ToList().ForEach(x => {
-            x.vertical *= (int)piece.Group;
-            x.horizontal *= (int)piece.Group;
-        });
-        
-        foreach (var destination in destinations) {
+        foreach (var moveRule in _destinations) {
             
-            var next = new Position(pos.X + destination.horizontal, pos.Y + destination.vertical);
+            // ルールと Group から、実際の移動先を「計算」する
+            var nextVertical = pos.Y + (moveRule.vertical * directionMultiplier);
+            var nextHorizontal = pos.X + (moveRule.horizontal * directionMultiplier);
+
+            var next = new Position(nextHorizontal, nextVertical);
             
+            // 盤内かどうかだけチェックする
             if (next.IsInside()) {
                 yield return next;
             }
-            else {
-                yield break;
-            }
-            
+            // 盤外なら yield break せず、単に無視して次の moveRule のチェックに進む
+            // (else ブロックは不要)
         }
     }
     

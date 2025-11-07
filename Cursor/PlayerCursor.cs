@@ -8,7 +8,7 @@ public interface IPlayerCursor
     /// <summary>
     /// カーソルの存在する座標
     /// </summary>
-    IPosition Position { get; }
+    Position Position { get; }
     
     /// <summary>
     /// 決定した座標を引数に発火される決定のコールバック
@@ -26,9 +26,9 @@ public sealed class PlayerCursor : IPlayerCursor
     
     private static readonly IInputManager _input = InputManager.GetInstance();
     
-    private static IPosition _pos = new Position(0,0);
+    private static Position _pos = new Position(0,0);
     
-    public IPosition Position => _pos;
+    public Position Position => _pos;
     
     private Action<Position> _onEnter;
 
@@ -81,7 +81,7 @@ public sealed class PlayerCursor : IPlayerCursor
          }
      }
     
-    private static IPosition CalculatePos (int deltaX, int deltaY) {
+    private static Position CalculatePos (int deltaX, int deltaY) {
         var app = AppData.GetInstance();
         var newX = _instance.Position.X + deltaX;
         var newY = _instance.Position.Y + deltaY;
