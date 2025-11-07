@@ -1,80 +1,53 @@
 namespace FinalAssignment.MoveRule;
 
-public enum SlideDirection {
-    RightFront,
-    RightBack,
-    LeftFront,
-    LeftBack
-}
-
 public class SlideMove : IMoveRule {
+    
+    private readonly MoveDirection _direction;
 
-    private SlideDirection _dir;
-    
-    private int _length;
-    
-    public SlideMove(SlideDirection dir, int length) {
-        _dir = dir;
+    private readonly int _length;
+
+    public SlideMove(MoveDirection direction, int length = 1) {
+        
+        _direction = direction;
+        
         _length = length;
+        
     }
-    
-    public IEnumerable<Position> GetMoves(APiece piece) {
 
+    public IEnumerable<Position> GetMoves(APiece piece) {
         var units = UnitManager.GetInstance();
         
-        var normalizedDir = (int)piece.Group;
-        
-        var dir = _dir.ToVector();
-        //スライド方向をグループによって変更
-        dir.vertical *= normalizedDir;
-        dir.horizontal *= normalizedDir;
-
         var pos = piece.Pos;
 
-        for (int step = 0; step < _length; step++) {
-            
-            var next = pos;
-            
-            try {
-                next = pos + new Position(dir.horizontal, dir.vertical);
-            }
-            catch (ArgumentOutOfRangeException) {
-                //範囲外に行こうとした場合はそこで終了
-                break;
-            }
+        var normalize = (int)piece.Group;
 
-            //版内でなければそこで終了
-            if (!next.IsInside()) {
-                break;
-            }
-            
-            //次の位置にいるユニットを取得
+        var vec = _direction.ToVector();
+        vec.x *= normalize;
+        vec.y *= normalize;
+        
+        for(int step = 1; step <=_length; step++) {
+            // 移動先の絶対座標を先に計算する
+            int targetX = pos.X + vec.x * step;
+            int targetY = pos.Y + vec.y * step;
+
+            var app = AppData.GetInstance();
+            // 盤外ならそこで打ち切る
+            if (targetX < 0 || targetX >= app.MapWidth || targetY < 0 || targetY >= app.MapHeight) break;
+
+            var next = new Position(targetX, targetY);
+
             var previous = units.GetUnitAtPosition(next);
-            
-            //ユニットがいなければそのまま追加
+
             if (previous is null) {
                 yield return next;
-                pos = next;
                 continue;
             }
-            else if (previous is not null && previous.Group != piece.Group) {
+            
+            if ( previous.Group != piece.Group) {
                 yield return next;
             }
-
+            
             break;
         }
-        
-    }
-}
-
-public static class SlideDirectionExtension {
-    public static (int vertical, int horizontal) ToVector(this SlideDirection dir) {
-        return dir switch {
-            SlideDirection.RightFront => (1, 1),
-            SlideDirection.RightBack => (-1, 1),
-            SlideDirection.LeftFront => (1, -1),
-            SlideDirection.LeftBack => (-1, -1),
-            _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
-        };
     }
 }
