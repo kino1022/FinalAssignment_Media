@@ -24,9 +24,16 @@ public class BackGroundContainer : IBackGroundContainer
 
     public static IBackGroundContainer GetInstance() => _instance;
 
-    public void AddDraw(Position pos, ConsoleColor color)
-    {
-        _colors.TryAdd(pos, color);
+    public void AddDraw(Position pos, ConsoleColor color) {
+        
+        var exist = _colors.Keys.Where(x => x == pos).FirstOrDefault();
+        
+        if (exist != null) {
+            _colors[pos] = color;
+            return;
+        }
+        
+        _colors.Add(pos, color);
     }
 
     public void RemoveDraw(Position pos)

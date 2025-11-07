@@ -31,11 +31,20 @@ public class SlideMove : IMoveRule {
 
         var pos = piece.Pos;
 
-        for (int step = 0; step < _length + 1; step++) {
-            var next = pos + new Position(dir.vertical, dir.horizontal);
+        for (int step = 0; step < _length; step++) {
+            
+            var next = pos;
+            
+            try {
+                next = pos + new Position(dir.horizontal, dir.vertical);
+            }
+            catch (ArgumentOutOfRangeException) {
+                //範囲外に行こうとした場合はそこで終了
+                break;
+            }
 
             //版内でなければそこで終了
-            if (next.IsInside()) {
+            if (!next.IsInside()) {
                 break;
             }
             
@@ -45,6 +54,7 @@ public class SlideMove : IMoveRule {
             //ユニットがいなければそのまま追加
             if (previous is null) {
                 yield return next;
+                pos = next;
                 continue;
             }
             else if (previous is not null && previous.Group != piece.Group) {
