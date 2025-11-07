@@ -4,9 +4,9 @@ namespace FinalAssignment;
 
 public enum Group {
     
-    Red,
+    Red = -1,
     
-    Blue,
+    Blue = 1
 }
 
 public static class GroupExtensions {

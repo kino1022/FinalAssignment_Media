@@ -19,7 +19,7 @@ public class SelectDestinationPhase : IGameState {
     
     private readonly IUnitManager<APiece> _units = UnitManager.GetInstance();
     
-    private List<IPosition> _destinations;
+    private IEnumerable<IPosition> _destinations;
 
     private ConsoleColor _color = ConsoleColor.Yellow;
 
@@ -31,13 +31,11 @@ public class SelectDestinationPhase : IGameState {
         
         _draw.InfoMessage = "移動先を選択してください";
 
-        _destinations = _unit.Positions.ToList();
-        
-        _destinations.ForEach(x =>
-        {
-            _container.AddDraw(x, _color);
-        });
-        
+        _destinations = _unit.Positions;
+
+        foreach (var pos in _destinations) {
+            _container.AddDraw(pos, _color);
+        }        
     }
 
     public void Update() {
@@ -47,11 +45,12 @@ public class SelectDestinationPhase : IGameState {
             {
                 _input.Queue.TryDequeue(out _);
                 //移動先の座標であるかを確認
-                if (_destinations.Exists(x => x == _cursor.Position))
+                if (_destinations.ToList().Exists(x => x == _cursor.Position))
                 {
                     //そうだった場合は移動処理を呼び出し
-                    var succes = MoveUnit(_cursor.Position);
-                    if (succes)
+                    var success = MoveUnit(_cursor.Position);
+                    
+                    if (success)
                     {
                         _state.ChangeState(new SelectPiecePhase(_unit.Group == Group.Red ? Group.Blue : Group.Red));
                     }
@@ -77,10 +76,9 @@ public class SelectDestinationPhase : IGameState {
     }
 
     public void Exit() {
-        _destinations.ForEach(x =>
-        {
-            _container.RemoveDraw(x);
-        });
+        foreach (var pos in _destinations) {
+            _container.RemoveDraw(pos);
+        }
     }
 
     private bool MoveUnit(IPosition pos)
