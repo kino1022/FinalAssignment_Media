@@ -125,7 +125,7 @@ public class SelectDestinationPhase : IGameState {
             return false;
         }
         
-        return piece.Group == Group.Red ? 3 > piece.Pos.Y : AppData.GetInstance().MapHeight - 3 < piece.Pos.Y;
+        return piece.Group == Group.Red ? 3 > piece.Pos.Y : AppData.GetInstance().MapHeight - 3 <= piece.Pos.Y;
 
     }
 }
