@@ -26,14 +26,7 @@ public class BackGroundContainer : IBackGroundContainer
 
     public void AddDraw(Position pos, ConsoleColor color)
     {
-        if (_colors.TryGetValue(pos, out ConsoleColor col))
-        {
-            col = color;
-        }
-        else
-        {
-            _colors.Add(pos, color);
-        }
+        _colors.TryAdd(pos, color);
     }
 
     public void RemoveDraw(Position pos)

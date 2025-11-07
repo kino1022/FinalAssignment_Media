@@ -4,6 +4,7 @@ public abstract class AMoveRule : IMoveRule {
 
     private (int vertical, int horizontal)[] _destinations;
     
+    
     protected AMoveRule((int vertical, int horizontal)[] destinations) {
 
         if (destinations.Length is 0) {
@@ -13,7 +14,10 @@ public abstract class AMoveRule : IMoveRule {
         _destinations = destinations;
     }
     
+    
     public IEnumerable<Position> GetMoves (APiece piece) {
+        
+        
         
         var pos = piece.Pos;
 
@@ -21,10 +25,9 @@ public abstract class AMoveRule : IMoveRule {
         
         foreach (var moveRule in _destinations) {
             
-            // ルールと Group から、実際の移動先を「計算」する
             var nextVertical = pos.Y + (moveRule.vertical * directionMultiplier);
             var nextHorizontal = pos.X + (moveRule.horizontal * directionMultiplier);
-
+            
             var next = new Position(nextHorizontal, nextVertical);
             
             // 盤内かどうかだけチェックする

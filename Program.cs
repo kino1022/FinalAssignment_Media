@@ -68,6 +68,12 @@ class Program {
             var pawn = new Pawn(new Position(i, app.MapHeight -3), Group.Red);
             redPieces.Add(pawn);
         }
+
+        var goldA = new GoldGeneral(new Position(3, app.MapHeight -1), Group.Red);
+        redPieces.Add(goldA);
+        
+        var goldB = new GoldGeneral(new  Position(5, app.MapHeight -1), Group.Red);
+        redPieces.Add(goldB);
     }
 
     private static void InitBluePieces() {
@@ -77,5 +83,6 @@ class Program {
             var pawn = new Pawn(new Position(i, 2), Group.Blue);
             bluePieces.Add(pawn);
         }
+        
     }
 }

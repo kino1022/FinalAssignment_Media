@@ -31,7 +31,7 @@ public abstract class AUnitManager<T> : IUnitManager<T> where T : IUnit {
     
     public T? GetUnitAtPosition(Position pos) {
         foreach (var unit in m_units) {
-            if (unit.Pos.X == pos.X && unit.Pos.Y == pos.Y) {
+            if (unit.Pos == pos) {
                 return unit;
             }
         }

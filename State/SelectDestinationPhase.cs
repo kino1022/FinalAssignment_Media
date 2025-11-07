@@ -99,10 +99,6 @@ public class SelectDestinationPhase : IGameState {
             _unit.Pos.SetPos(pos.X, pos.Y);
             return true;
         }
-        else
-        {
-            return false;
-        }
 
         return false;
     }

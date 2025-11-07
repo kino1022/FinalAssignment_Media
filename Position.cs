@@ -1,7 +1,7 @@
 namespace FinalAssignment;
 
 [Serializable]
-public struct Position  {
+public class Position  {
 
     private int m_x = 0;
     
@@ -23,6 +23,24 @@ public struct Position  {
     public static bool operator ==(Position a, Position b) => a.m_x == b.m_x && a.m_y == b.m_y;
     
     public static bool operator !=(Position a, Position b) => !(a == b);
+    
+    public static Position operator + (Position a, Position b) { 
+        var x = a.X + b.X;
+        var y = a.Y + b.Y;
+        
+        var next = new Position(x, y);
+        if (next.IsInside()) {
+            return next;
+        }
+        
+        
+        if (next.X < 0) x  = 0;
+        if (next.X >= AppData.GetInstance().MapWidth) x= AppData.GetInstance().MapWidth - 1;
+        if (next.Y < 0) y = 0;
+        if (next.Y >= AppData.GetInstance().MapHeight) y = AppData.GetInstance().MapHeight - 1;
+        
+        return new Position(x, y);
+    }
 
     public void SetPos(int x, int y) {
         
@@ -33,12 +51,20 @@ public struct Position  {
         m_y = y;
         
     }
+    
+    public void SetPos(Position pos) {
+        
+        m_x = pos.X;
+        
+        m_y = pos.Y;
+        
+    }
 
     private bool CheckIntegrate(int x, int y) {
         
-        if (x < 0 || x > AppData.GetInstance().MapWidth -1) return false;
+        if (x < 0 || x > AppData.GetInstance().MapWidth) return false;
         
-        if (y < 0 || y > AppData.GetInstance().MapHeight -1) return false;
+        if (y < 0 || y > AppData.GetInstance().MapHeight) return false;
         
         return true;
     }
