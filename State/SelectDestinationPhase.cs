@@ -20,6 +20,8 @@ public class SelectDestinationPhase : IGameState {
     private readonly IUnitManager<APiece> _units = UnitManager.GetInstance();
     
     private IEnumerable<Position> _destinations;
+    
+    private List<Position> _destinationCache = new List<Position>();
 
     private ConsoleColor _color = ConsoleColor.Yellow;
 
@@ -35,6 +37,7 @@ public class SelectDestinationPhase : IGameState {
 
         foreach (var pos in _destinations) {
             _container.AddDraw(pos, _color);
+            _destinationCache.Add(pos);
         }        
     }
 
@@ -44,6 +47,7 @@ public class SelectDestinationPhase : IGameState {
             if (raw.Key is ConsoleKey.Enter)
             {
                 _input.Queue.TryDequeue(out _);
+                
                 //移動先の座標であるかを確認
                 if (_destinations.ToList().Exists(x => x == _cursor.Position))
                 {
@@ -77,7 +81,7 @@ public class SelectDestinationPhase : IGameState {
     }
 
     public void Exit() {
-        foreach (var pos in _destinations) {
+        foreach (var pos in _destinationCache) {
             _container.RemoveDraw(pos);
         }
     }

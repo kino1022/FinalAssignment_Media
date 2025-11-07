@@ -74,6 +74,33 @@ class Program {
         
         var goldB = new GoldGeneral(new  Position(5, app.MapHeight -1), Group.Red);
         redPieces.Add(goldB);
+        
+        var silverA = new SilverGeneral(new Position(2, app.MapHeight -1), Group.Red);
+        redPieces.Add(silverA);
+        
+        var silverB = new SilverGeneral(new  Position(6, app.MapHeight -1), Group.Red);
+        redPieces.Add(silverB);
+        
+        var rook = new Rook(new Position(7, app.MapHeight -2), Group.Red);
+        redPieces.Add(rook);
+        
+        var bishop = new Bishop(new Position(1, app.MapHeight -2), Group.Red);
+        redPieces.Add(bishop);
+        
+        var lancerA = new Lancer(new Position(0, app.MapHeight -1), Group.Red);
+        redPieces.Add(lancerA);
+        
+        var lancerB = new Lancer(new Position(8, app.MapHeight -1), Group.Red);
+        redPieces.Add(lancerB);
+        
+        var knightA = new Knight(new Position(1, app.MapHeight -1), Group.Red);
+        redPieces.Add(knightA);
+        
+        var knightB = new Knight(new Position(7,  app.MapHeight -1), Group.Red);
+        redPieces.Add(knightB);
+        
+        var king = new King(new  Position(4, app.MapHeight -1), Group.Red);
+        redPieces.Add(king);
     }
 
     private static void InitBluePieces() {
@@ -84,5 +111,31 @@ class Program {
             bluePieces.Add(pawn);
         }
         
+        var goldA = new GoldGeneral(new Position(3, 0), Group.Blue);
+        bluePieces.Add(goldA);
+        
+        var goldB = new GoldGeneral(new  Position(5, 0), Group.Blue);
+        bluePieces.Add(goldB);
+        
+        var silverA = new SilverGeneral(new Position(2, 0), Group.Blue);
+        bluePieces.Add(silverA);
+        
+        var silverB = new SilverGeneral(new  Position(6, 0), Group.Blue);
+        bluePieces.Add(silverB);
+        
+        var rook = new Rook(new Position(7, 1), Group.Blue);
+        bluePieces.Add(rook);
+        
+        var bishop = new Bishop(new Position(1, 1), Group.Blue);
+        bluePieces.Add(bishop);
+        
+        var lancerA = new Lancer(new Position(0, 0), Group.Blue);
+        bluePieces.Add(lancerA);
+        
+        var lancerB = new Lancer(new Position(8, 0), Group.Blue);
+        bluePieces.Add(lancerB);
+        
+        var king = new King(new  Position(4, 0), Group.Blue);
+        bluePieces.Add(king);
     }
 }
