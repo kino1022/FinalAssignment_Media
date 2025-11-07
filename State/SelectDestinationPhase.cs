@@ -20,6 +20,8 @@ public class SelectDestinationPhase : IGameState {
     private readonly IUnitManager<APiece> _units = UnitManager.GetInstance();
     
     private IEnumerable<Position> _destinations;
+    
+    private List<Position> _destinationCache = new List<Position>();
 
     private ConsoleColor _color = ConsoleColor.Yellow;
 
@@ -35,6 +37,7 @@ public class SelectDestinationPhase : IGameState {
 
         foreach (var pos in _destinations) {
             _container.AddDraw(pos, _color);
+            _destinationCache.Add(pos);
         }        
     }
 
@@ -44,6 +47,7 @@ public class SelectDestinationPhase : IGameState {
             if (raw.Key is ConsoleKey.Enter)
             {
                 _input.Queue.TryDequeue(out _);
+                
                 //移動先の座標であるかを確認
                 if (_destinations.ToList().Exists(x => x == _cursor.Position))
                 {
@@ -53,6 +57,14 @@ public class SelectDestinationPhase : IGameState {
                     if (success)
                     {
                         //移動成功時に成り駒の判定と処理も行うこと
+                        if (IsJobChange(_unit)) {
+                            if (_unit.GetType() == typeof(GoldGeneral) || _unit.GetType() == typeof(King)) {
+                                // 成れない駒はスキップ
+                            }
+                            if (_unit.GetType() == typeof(Rook)) _unit.JobChange(new Dragon(_unit.Pos, _unit.Group));
+                            if (_unit.GetType() == typeof(Bishop)) _unit.JobChange(new Horse(_unit.Pos, _unit.Group));
+                            else _unit.JobChange(new GoldGeneral(_unit.Pos, _unit.Group));
+                        }
                         _state.ChangeState(new SelectPiecePhase(_unit.Group == Group.Red ? Group.Blue : Group.Red));
                     }
                     else
@@ -77,7 +89,7 @@ public class SelectDestinationPhase : IGameState {
     }
 
     public void Exit() {
-        foreach (var pos in _destinations) {
+        foreach (var pos in _destinationCache) {
             _container.RemoveDraw(pos);
         }
     }
@@ -95,11 +107,25 @@ public class SelectDestinationPhase : IGameState {
         //先客がいてグループが違うなら取る
         else if (previous.Group != _unit.Group)
         {
+            if (previous.GetType() == typeof(King)) {
+                AppData.GetInstance().LoopFlag = false;
+            }
+            
             _units.RemoveUnit(previous);
             _unit.Pos.SetPos(pos.X, pos.Y);
             return true;
         }
 
         return false;
+    }
+
+    private bool IsJobChange(APiece piece) {
+        
+        if (piece.GetType() == typeof(GoldGeneral) || piece.GetType() == typeof(King)) {
+            return false;
+        }
+        
+        return piece.Group == Group.Red ? 3 > piece.Pos.Y : AppData.GetInstance().MapHeight - 3 < piece.Pos.Y;
+
     }
 }
