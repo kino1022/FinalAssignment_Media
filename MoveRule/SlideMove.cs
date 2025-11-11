@@ -31,6 +31,7 @@ public class SlideMove : IMoveRule {
             int targetY = pos.Y + vec.y * step;
 
             var app = AppData.GetInstance();
+            
             // 盤外ならそこで打ち切る
             if (targetX < 0 || targetX >= app.MapWidth || targetY < 0 || targetY >= app.MapHeight) break;
 

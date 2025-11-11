@@ -58,11 +58,11 @@ public class SelectDestinationPhase : IGameState {
                     {
                         //移動成功時に成り駒の判定と処理も行うこと
                         if (IsJobChange(_unit)) {
-                            if (_unit.GetType() == typeof(GoldGeneral) || _unit.GetType() == typeof(King)) {
+                            if (_unit.GetType() == typeof(GoldGeneral) || _unit.GetType() == typeof(King)|| _unit.GetType() == typeof(Dragon) || _unit.GetType() == typeof(Horse)) {
                                 // 成れない駒はスキップ
                             }
-                            if (_unit.GetType() == typeof(Rook)) _unit.JobChange(new Dragon(_unit.Pos, _unit.Group));
-                            if (_unit.GetType() == typeof(Bishop)) _unit.JobChange(new Horse(_unit.Pos, _unit.Group));
+                            else if (_unit.GetType() == typeof(Rook)) _unit.JobChange(new Dragon(_unit.Pos, _unit.Group));
+                            else if (_unit.GetType() == typeof(Bishop)) _unit.JobChange(new Horse(_unit.Pos, _unit.Group));
                             else _unit.JobChange(new GoldGeneral(_unit.Pos, _unit.Group));
                         }
                         _state.ChangeState(new SelectPiecePhase(_unit.Group == Group.Red ? Group.Blue : Group.Red));

@@ -124,10 +124,10 @@ class Program {
         var silverB = new SilverGeneral(new  Position(6, 0), Group.Blue);
         bluePieces.Add(silverB);
         
-        var rook = new Rook(new Position(7, 1), Group.Blue);
+        var rook = new Bishop(new Position(7, 1), Group.Blue);
         bluePieces.Add(rook);
         
-        var bishop = new Bishop(new Position(1, 1), Group.Blue);
+        var bishop = new Rook(new Position(1, 1), Group.Blue);
         bluePieces.Add(bishop);
         
         var lancerA = new Lancer(new Position(0, 0), Group.Blue);
@@ -135,6 +135,12 @@ class Program {
         
         var lancerB = new Lancer(new Position(8, 0), Group.Blue);
         bluePieces.Add(lancerB);
+        
+        var knightA = new Knight(new Position(1, 0), Group.Blue);
+        redPieces.Add(knightA);
+        
+        var knightB = new Knight(new Position(7,  0), Group.Blue);
+        redPieces.Add(knightB);
         
         var king = new King(new  Position(4, 0), Group.Blue);
         bluePieces.Add(king);
